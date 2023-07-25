@@ -1,6 +1,4 @@
-// const searchInput = document.querySelector('#searchInput');
-
-
+"use strict"
 const getMoviesBySearch = async (queryParam) => {
     try {
 
@@ -15,18 +13,28 @@ const getMoviesBySearch = async (queryParam) => {
             }
         }
         const response = await fetch(url, options)
-        const data =  await response.json();
-        console.log(data)
-        return data
+        const movies =  await response.json();
+        const movieContainer =  document.getElementById('movie-card')
+        for (let movie of movies.results) {
+            // node needs to appear within id #div
+            let movieCard = document.createElement('div')
+            movieCard.innerHTML = (`
+                <ul>
+                <li>Title: ${movie.title}</li>
+                <li>Release Date: ${movie.release_date}</li>
+                <li>Poster Path: ${movie.poster_path}</li>
+                <li>Overview: ${movie.overview}</li>
+                </ul>
+            `);
+            movieContainer.append(movieCard)
+            console.log(movie)
+        // return movie
+        }
     } catch (error) {
-
+        console.error(error)
     }
 
 }
-
-// const displayMovie = () => {
-//
-// }
 
 
 (() => {
