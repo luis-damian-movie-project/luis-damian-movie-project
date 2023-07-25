@@ -74,13 +74,22 @@ const showPopularMovies = async () => {
                  <button id="remove-btn" type="button" class=" remove-btn btn btn-outline-primary">Remove</button>
                 </ul>
             `);
+            movieContainer.append(movieCard)
             let removeButton = movieCard.querySelector('.remove-btn')
             removeButton.addEventListener('click', () => {
                 movieCard.remove();
             })
             const saveButton = movieCard.querySelector('#save-btn')
-            saveButton.addEventListener('click', saveToFavorites)
-            movieContainer.append(movieCard)
+            saveButton.addEventListener('click', async(e) => {
+                e.preventDefault();
+                console.log(movieCard)
+                const response = await addToFavorites()
+                // console.log(response)
+                return response
+                // const favMoviesDiv =
+                // document.querySelector('#favorite-movies');
+                // await renderFavoriteMovies(await getFavovoriteMovies());
+            })
 
             // return movies
         }
@@ -109,49 +118,19 @@ const getFavorites = async () => {
     }
 }
 
-
-//This function will
-const saveToFavorites = async (e) => {
-    e.preventDefault();
-    const movieCard = e.target.closest('ul');
-    if (!movieCard) {
-        return;
-    }
-
-    // Extract movie data from the movie card
-    const title = movieCard.querySelector('li[data-property="Title"]').innerText;
-    const releaseDate = movieCard.querySelector('li[data-property="ReleaseDate"]').innerText;
-    const overview = movieCard.querySelector('li[data-property="Overview"]').innerText;
-    const posterPath = movieCard.querySelector('li[data-property="PosterPath"]').innerText;
-
-    // Create the savedMovieCard object
-    const savedMovieCard = {
-        Title: title,
-        ReleaseDate: releaseDate,
-        Overview: overview,
-        PosterPath: posterPath,
-    };
-
+const addToFavorites = async (resultPara) => {
+    const url = 'http://localhost:3000/movies'
     const options = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(savedMovieCard),
+        body: JSON.stringify(savedMovieCard)
     };
-
-    try {
-        const response = await fetch('http://localhost:3000/movies', options);
-        if (response.ok) {
-            // Successfully saved the movie to favorites
-            console.log('Movie saved to favorites!');
-        } else {
-            console.error('Failed to save movie to favorites:', response.status, response.statusText);
-        }
-    } catch (error) {
-        console.error('Error saving movie to favorites:', error);
-    }
-};
+    const response = await fetch(url, options);
+    const data = response.json()
+    return data
+}
 
 
 
