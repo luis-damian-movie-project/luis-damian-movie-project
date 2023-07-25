@@ -21,15 +21,22 @@
     <link rel="stylesheet" href="bootstrap.css">
 </head>
 <body>
-<div>
-    <div class="input-group">
-        <input id="searchInput" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-        <button id="searchMovie" type="button" class="btn btn-outline-primary">Search Movie</button>
+<div class="page-wrapper">
+ <nav class="container">
+        <div class="input-group">
+            <input id="searchInput" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <button id="searchMovie" type="button" class="btn btn-outline-primary">Search Movie</button>
+        </div>
+    </nav>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="row d-flex">
+            <div class="card" id="movie-card"></div>
+        </div>
     </div>
 </div>
-<hr>
-<div id="movie-card"></div>
-
+</div>
 
 
 
