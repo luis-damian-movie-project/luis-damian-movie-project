@@ -3,16 +3,44 @@
     {
       "title": "My Hero Academia: All Might Rising",
       "release": "2019-02-13",
-      "img": {},
+      "img": "https://image.tmdb.org/t/p/original/vmRfBDkI5gH7mBUAsmVnWFLz3pm.jpg",
       "sum": "3rd My Hero Academia OVA. A short special about All Might included with the Blu-ray/DVD release of My Hero Academia: Two Heroes.",
-      "id": 1
+      "id": 2
+    },
+    {
+      "title": "All Ladies Do It",
+      "release": "1992-02-21",
+      "img": "https://image.tmdb.org/t/p/originalnull",
+      "sum": "After five years of marriage, Diana discovers the joys of adultery, claiming that she can save her failing relationship through betrayal.",
+      "id": 3
     },
     {
       "title": "My Hero Academia: All Might Rising",
       "release": "2019-02-13",
       "img": "https://image.tmdb.org/t/p/original/vmRfBDkI5gH7mBUAsmVnWFLz3pm.jpg",
       "sum": "3rd My Hero Academia OVA. A short special about All Might included with the Blu-ray/DVD release of My Hero Academia: Two Heroes.",
-      "id": 2
+      "id": 4
+    },
+    {
+      "title": "My Hero Academia: All Might Rising",
+      "release": "2019-02-13",
+      "img": "https://image.tmdb.org/t/p/original/vmRfBDkI5gH7mBUAsmVnWFLz3pm.jpg",
+      "sum": "3rd My Hero Academia OVA. A short special about All Might included with the Blu-ray/DVD release of My Hero Academia: Two Heroes.",
+      "id": 5
+    },
+    {
+      "title": "Bird Box Barcelona",
+      "release": "2023-07-14",
+      "img": "https://image.tmdb.org/t/p/original/hOb6ODI7QQFKkOe3eJU2Fdh2fk1.jpg",
+      "sum": "After a mysterious force decimates the world’s population, Sebastian must navigate his own survival journey through the desolate streets of Barcelona. As he forms uneasy alliances with other survivors and they try to escape the city, an unexpected and even more sinister threat grows.",
+      "id": 6
+    },
+    {
+      "title": "Resident Evil: Death Island",
+      "release": "2023-06-22",
+      "img": "https://image.tmdb.org/t/p/original/2BwerQH4tZvHU6zUlC77aDw7pLt.jpg",
+      "sum": "In San Francisco, Jill Valentine is dealing with a zombie outbreak and a new T-Virus, Leon Kennedy is on the trail of a kidnapped DARPA scientist, and Claire Redfield is investigating a monstrous fish that is killing whales in the bay. Joined by Chris Redfield and Rebecca Chambers, they discover the trail of clues from their separate cases all converge on the same location, Alcatraz Island, where a new evil has taken residence and awaits their arrival.",
+      "id": 7
     }
   ]
 }

@@ -1,12 +1,41 @@
 "use strict"
+const genreListEndpoint = `https://api.themoviedb.org/3/genre/movie/list?api_key=${MOVIE_DB_API}`;
 
+// Function to fetch the genre list
+async function fetchGenreList() {
+    try {
+        const response = await fetch(genreListEndpoint);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log(data);
+        return data.genres;
+    } catch (error) {
+        console.error('Error fetching genre list:', error);
+        return [];
+    }
+}
+// Example usage
+fetchGenreList()
+    .then((genres) => {
+        console.log(genres);
+        // Do something with the genre list here
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 //This function retrieves movies from the api and displays them on the page from a search
-const getMoviesBySearch = async (queryParam) => {
+const getMoviesBySearch = async (queryParam, genreId = null) => {
     const url = 'https://api.themoviedb.org/3/movie/popular';
     const imgUrl = 'https://image.tmdb.org/t/p/original'
     try {
-        const baseUrl = 'https://api.themoviedb.org/3/search/movie';
-        const queryString = `?query=${encodeURIComponent(queryParam)}&api_key=${MOVIE_DB_API}`;
+        let baseUrl = 'https://api.themoviedb.org/3/search/movie';
+        let queryString = `?query=${encodeURIComponent(queryParam)}&api_key=${MOVIE_DB_API}`;
+        if (genreId !== null) {
+            baseUrl = `https://api.themoviedb.org/3/discover/movie`;
+            queryString = `?with_genres=${genreId}&api_key=${MOVIE_DB_API}`;
+        }
         const url = baseUrl + queryString;
         const options = {
             method: 'GET',
@@ -23,8 +52,6 @@ const getMoviesBySearch = async (queryParam) => {
             // node needs to appear within id #div
             let movieCard = document.createElement('div')
             movieCard.innerHTML = `
-        
-<!--        put code above down here-->
             <div class="card" style="width: 18rem;">
             <img id="moviePoster" class="grabImg" src="${imgUrl + movie.poster_path}" alt="${movie.title} Poster" class="card-img-top "/>
            <div class="card-body">
@@ -65,13 +92,13 @@ const getMoviesBySearch = async (queryParam) => {
             })
         }
     } catch (error) {
-
+        console.error('Error:', error);
     }
 
 }
 
 
-const showPopularMovies = async () => {
+const showPopularMovies = async (genreId = null) => {
     const url = 'https://api.themoviedb.org/3/movie/popular';
     const imgUrl = 'https://image.tmdb.org/t/p/original'
     const options = {
@@ -82,7 +109,11 @@ const showPopularMovies = async () => {
         },
     };
     try {
-        const response = await fetch(url, options);
+        let fullUrl = url;
+        if (genreId !== null) {
+            fullUrl = `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&api_key=${MOVIE_DB_API}`;
+        }
+        const response = await fetch(fullUrl, options);
         const movies = await response.json();
         const movieContainer = document.getElementById('popularMovieCards');
         movieContainer.innerHTML = '';
@@ -155,11 +186,7 @@ const getFavorites = async () => {
         movieContainer.innerHTML = '';
         for (let movie of data) {
             console.log(movie)
-
-
-
-
-
+            /* fetch for image urls goes here */
             let movieCard = document.createElement('div');
             movieCard.classList.add('movie-card')
             movieCard.innerHTML = (`
@@ -176,8 +203,8 @@ const getFavorites = async () => {
             </div>
       `);
             movieContainer.append(movieCard);
-            let id = movie.id
-            let removeButton = movieCard.querySelector('.remove-btn')
+            const id = movie.id
+            const removeButton = movieCard.querySelector('.remove-btn')
             removeButton.addEventListener('click', () => {
                 movieCard.remove()
                 removeFromFavorites(id);
@@ -186,9 +213,9 @@ const getFavorites = async () => {
 
 
     } catch (error) {
-
+        console.error('Error:', error);
     }
-}
+};
 
 const addToFavorites = async (movie) => {
     const url = 'http://localhost:3000/movies'
@@ -227,9 +254,13 @@ const removeFromFavorites = async (id) => {
 
 
 (() => {
-    getFavorites()
 
-    // showPopularMovies()
+    const favoriteBtn = document.getElementById('favorites')
+    favoriteBtn.addEventListener('click', getFavorites)
+    showPopularMovies()
+
+    const home = document.getElementById('popular')
+    home.addEventListener('click', showPopularMovies)
     // Add event listener to the search button and keypress event
     const searchButton = document.querySelector('#searchMovie');
     searchButton.addEventListener('click', () => {
@@ -243,7 +274,13 @@ const removeFromFavorites = async (id) => {
             getMoviesBySearch(searchInputValue);
         }
     });
-
+    const genreLinks = document.querySelectorAll('.genre-filter');
+    genreLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const genreId = link.getAttribute('data-genre-id');
+            getMoviesBySearch('', genreId); // Pass an empty string for search query and genreId for filtering
+        });
+    });
 
 
 
