@@ -53,7 +53,7 @@ const getMoviesBySearch = async (queryParam, genreId = null) => {
             // node needs to appear within id #div
             let movieCard = document.createElement('div')
             movieCard.innerHTML = `
-            <div class="card" style="width: 18rem;">
+            <div class="card customCard" style="width: 18rem;">
             <img id="moviePoster" class="grabImg" src="${imgUrl + movie.poster_path}" alt="${movie.title} Poster" class="card-img-top "/>
            <div class="card-body">
             <h5 class="card-title text-center grabTitle">${movie.title}</h5>
