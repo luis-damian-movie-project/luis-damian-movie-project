@@ -11,6 +11,17 @@
       "title": "The Godfather",
       "genre": "Crime",
       "rating": 5
+    },
+    {
+      "title": "Title: Megaman",
+      "release": "Release Date: 2010-05-15",
+      "img": {},
+      "sum": "Overview: A brave robot volunteers to combat the mechanoid minions of a mad scientist bent on world domination.",
+      "id": 3
+    },
+    {
+      "isTrusted": true,
+      "id": 4
     }
   ]
 }

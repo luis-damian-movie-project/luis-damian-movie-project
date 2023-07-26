@@ -22,10 +22,10 @@ const getMoviesBySearch = async (queryParam) => {
             let movieCard = document.createElement('div')
             movieCard.innerHTML = (`
                 <ul>
-                <li>Title: ${movie.title}</li>
-                <li>Release Date: ${movie.release_date}</li>
-                <li>Poster Path: ${movie.poster_path}</li>
-                <li>Overview: ${movie.overview}</li>
+                <li class="grabTitle">Title: ${movie.title}</li>
+                <li class="grabRelease">Release Date: ${movie.release_date}</li>
+                <li class="grabImg">Poster Path: ${movie.poster_path}</li>
+                <li class="grabSum">Overview: ${movie.overview}</li>
                 <button id="save-btn" type="button" class="save-btn btn btn-outline-primary">Testing Fav</button>
                  <button id="remove-btn" type="button" class=" remove-btn btn btn-outline-primary">Remove</button>
                 </ul>
@@ -39,7 +39,20 @@ const getMoviesBySearch = async (queryParam) => {
             saveButton.addEventListener('click', async(e) => {
                 e.preventDefault();
                 console.log(movieCard)
-                const response = await addToFavorites()
+                const movieTitle = movieCard.querySelector('.grabTitle').innerText;
+                const movieRelease = movieCard.querySelector('.grabRelease').innerText;
+                const movieImg = movieCard.querySelector('.grabImg');
+                const movieSum = movieCard.querySelector('.grabSum').innerText;
+
+                const newMovie = {
+                    title: movieTitle,
+                    release: movieRelease,
+                    img: movieImg,
+                    sum: movieSum,
+                }
+
+
+                const response = await addToFavorites(newMovie)
                 // console.log(response)
                 return response
                 // const favMoviesDiv =
@@ -55,60 +68,67 @@ const getMoviesBySearch = async (queryParam) => {
 
 }
 
-// This function loads popular on initialization
+
 const showPopularMovies = async () => {
-    const url = 'https://api.themoviedb.org/3/movie/popular'
+    const url = 'https://api.themoviedb.org/3/movie/popular';
     const imgUrl = 'https://image.tmdb.org/t/p/original'
     const options = {
         method: 'GET',
         headers: {
             accept: 'application/json',
-            Authorization: `Bearer ${MOVIE_TOKEN_AUTH}`
-        }
-    }
+            Authorization: `Bearer ${MOVIE_TOKEN_AUTH}`,
+        },
+    };
     try {
-        const response = await fetch(url, options)
+        const response = await fetch(url, options);
         const movies = await response.json();
-        const movieContainer = document.getElementById('popularMovieCards')
-        movieContainer.innerHTML = ('')
+        const movieContainer = document.getElementById('popularMovieCards');
+        movieContainer.innerHTML = '';
+
+        let isFirstSlide = true; // To determine the first slide
+
         for (let movie of movies.results) {
-            // node needs to appear within id #div
-            let movieCard = document.createElement('div')
-            movieCard.innerHTML = (`
-                <div class="card" style="widtclassNamerem;">
-                    <img src="${imgUrl + movie.poster_path}" alt="${movie.title} Poster"/>
-                    <div class=" card-body">
-                        <classNameass=" card-title">${movie.title}</h5>
-                        <p class=" card-text">${movie.overview}</p>
-                    </div>
-                    <ul class=" list-group list-gclassNameflush">
-                        <li class=" list-group-item">Release Date: ${movie.release_date}</li>
-                        <li class=" list-group-item">RATING SHOULD GO HERE</li>
-                        <li class=" list-group-item">SOMETHING ELSE SHOULD GO HERE</li>
-                    </ul>
-                    <div class=" card-body">
-                        <button id="save-btn" type="button" class="save-btn btn btn-classNamene-primary">Testing Fav
-                        </button>
-                        <button id="remove-btn" type="button" class=" remove-btn btn bclassNametline-primary">Remove
-                        </button>
-                    </div>
-                </div>
-            `);
-            let removeButton = movieCard.querySelector('.remove-btn')
+            let movieCard = document.createElement('div');
+            movieCard.classList.add('movie-card')
+            // Update the HTML content of the movie card
+            movieCard.innerHTML = `
+        
+<!--        put code above down here-->
+        <div class="card" style="width: 18rem;">
+          <img class="grabImg" src="${imgUrl + movie.poster_path}" alt="${movie.title} Poster" class="card-img-top "/>
+  <div class="card-body">
+            <h5 class="card-title text-center grabTitle">${movie.title}</h5>
+            <p class="card-text overview grabSum fs-7">${movie.overview}</p>
+          <div class="card-body">
+            <button id="save-btn" type="button" class="save-btn btn btn-info">Testing Fav</button>
+            <button id="remove-btn" type="button" class="remove-btn btn btn-danger">Remove</button>
+          </div>
+  </div>
+</div>
+      `;
+
+            // Add the carousel-item class only to the first slide
+            if (isFirstSlide) {
+                movieCard.classList.add('active');
+                isFirstSlide = false;
+            }
+
+            // Rest of the code remains the same
+            let removeButton = movieCard.querySelector('.remove-btn');
             removeButton.addEventListener('click', () => {
                 movieCard.remove();
-            })
-            const saveButton = movieCard.querySelector('#save-btn')
-            saveButton.addEventListener('click', saveToFavorites)
-            movieContainer.append(movieCard)
+            });
 
-            // return movies
+            const saveButton = movieCard.querySelector('#save-btn');
+            saveButton.addEventListener('click', addToFavorites);
+
+            movieContainer.append(movieCard);
         }
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
+};
 
-}
 
 // This function retrieves movies from the json file
 const getFavorites = async () => {
@@ -129,14 +149,14 @@ const getFavorites = async () => {
     }
 }
 
-const addToFavorites = async (resultPara) => {
+const addToFavorites = async (movie) => {
     const url = 'http://localhost:3000/movies'
     const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(savedMovieCard)
+        body: JSON.stringify(movie)
     };
     const response = await fetch(url, options);
     const data = response.json()
@@ -159,6 +179,20 @@ const addToFavorites = async (resultPara) => {
             getMoviesBySearch(searchInputValue);
         }
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 })();
