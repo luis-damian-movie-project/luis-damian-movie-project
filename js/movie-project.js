@@ -91,7 +91,7 @@ const showPopularMovies = async () => {
             movieCard.classList.add('movie-card')
             movieCard.innerHTML = (`
             <div class="card" style="width: 18rem;">
-            <img class="grabImg" src="${imgUrl + movie.poster_path}" alt="${movie.title} Poster" class="card-img-top "/>
+            <img id="moviePoster" class="grabImg" src="${imgUrl}${movie.poster_path}" alt="${movie.title} Poster" class="card-img-top "/>
             <div class="card-body">
             <h5 class="card-title text-center grabTitle">${movie.title}</h5>
             <p class="card-text overview grabSum fs-7">${movie.overview}</p>
@@ -117,13 +117,14 @@ const showPopularMovies = async () => {
                 console.log(movieCard)
                 const movieTitle = movieCard.querySelector('.grabTitle').innerText;
                 const movieRelease = movieCard.querySelector('.grabRelease').innerText;
-                const movieImg = movieCard.querySelector('.grabImg');
+                // const movieImg = movieCard.querySelector('.grabImg').innerText;
                 const movieSum = movieCard.querySelector('.grabSum').innerText;
-
+                const imageElement = document.getElementById('moviePoster')
+                const imageUrl = imageElement.src
                 const newMovie = {
                     title: movieTitle,
                     release: movieRelease,
-                    img: movieImg,
+                    img: imageUrl,
                     sum: movieSum,
                 }
 
@@ -153,6 +154,11 @@ const getFavorites = async () => {
         movieContainer.innerHTML = '';
         for (let movie of data) {
             console.log(movie)
+
+
+
+
+
             let movieCard = document.createElement('div');
             movieCard.classList.add('movie-card')
             movieCard.innerHTML = (`
@@ -193,9 +199,9 @@ const addToFavorites = async (movie) => {
 
 
 (() => {
-    // getFavorites()
+    getFavorites()
 
-    showPopularMovies()
+    // showPopularMovies()
     // Add event listener to the search button and keypress event
     const searchButton = document.querySelector('#searchMovie');
     searchButton.addEventListener('click', () => {
