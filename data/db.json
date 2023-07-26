@@ -1,46 +1,32 @@
 {
   "movies": [
     {
-      "title": "My Hero Academia: All Might Rising",
-      "release": "2019-02-13",
-      "img": "https://image.tmdb.org/t/p/original/vmRfBDkI5gH7mBUAsmVnWFLz3pm.jpg",
-      "sum": "3rd My Hero Academia OVA. A short special about All Might included with the Blu-ray/DVD release of My Hero Academia: Two Heroes.",
+      "title": "Barbie",
+      "release": "2023-07-19",
+      "img": "https://image.tmdb.org/t/p/original/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+      "sum": "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.",
+      "id": 1
+    },
+    {
+      "title": "The Flash",
+      "release": "2023-06-13",
+      "img": "https://image.tmdb.org/t/p/original/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+      "sum": "When his attempt to save his family inadvertently alters the future, Barry Allen becomes trapped in a reality in which General Zod has returned and there are no Super Heroes to turn to. In order to save the world that he is in and return to the future that he knows, Barry's only hope is to race for his life. But will making the ultimate sacrifice be enough to reset the universe?",
       "id": 2
     },
     {
-      "title": "All Ladies Do It",
-      "release": "1992-02-21",
-      "img": "https://image.tmdb.org/t/p/originalnull",
-      "sum": "After five years of marriage, Diana discovers the joys of adultery, claiming that she can save her failing relationship through betrayal.",
+      "title": "Transformers: Rise of the Beasts",
+      "release": "2023-06-06",
+      "img": "https://image.tmdb.org/t/p/original/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+      "sum": "When a new threat capable of destroying the entire planet emerges, Optimus Prime and the Autobots must team up with a powerful faction known as the Maximals. With the fate of humanity hanging in the balance, humans Noah and Elena will do whatever it takes to help the Transformers as they engage in the ultimate battle to save Earth.",
       "id": 3
     },
     {
-      "title": "My Hero Academia: All Might Rising",
-      "release": "2019-02-13",
-      "img": "https://image.tmdb.org/t/p/original/vmRfBDkI5gH7mBUAsmVnWFLz3pm.jpg",
-      "sum": "3rd My Hero Academia OVA. A short special about All Might included with the Blu-ray/DVD release of My Hero Academia: Two Heroes.",
+      "title": "Guardians of the Galaxy Vol. 3",
+      "release": "2023-05-03",
+      "img": "https://image.tmdb.org/t/p/original/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+      "sum": "Peter Quill, still reeling from the loss of Gamora, must rally his team around him to defend the universe along with protecting one of their own. A mission that, if not completed successfully, could quite possibly lead to the end of the Guardians as we know them.",
       "id": 4
-    },
-    {
-      "title": "My Hero Academia: All Might Rising",
-      "release": "2019-02-13",
-      "img": "https://image.tmdb.org/t/p/original/vmRfBDkI5gH7mBUAsmVnWFLz3pm.jpg",
-      "sum": "3rd My Hero Academia OVA. A short special about All Might included with the Blu-ray/DVD release of My Hero Academia: Two Heroes.",
-      "id": 5
-    },
-    {
-      "title": "Bird Box Barcelona",
-      "release": "2023-07-14",
-      "img": "https://image.tmdb.org/t/p/original/hOb6ODI7QQFKkOe3eJU2Fdh2fk1.jpg",
-      "sum": "After a mysterious force decimates the world’s population, Sebastian must navigate his own survival journey through the desolate streets of Barcelona. As he forms uneasy alliances with other survivors and they try to escape the city, an unexpected and even more sinister threat grows.",
-      "id": 6
-    },
-    {
-      "title": "Resident Evil: Death Island",
-      "release": "2023-06-22",
-      "img": "https://image.tmdb.org/t/p/original/2BwerQH4tZvHU6zUlC77aDw7pLt.jpg",
-      "sum": "In San Francisco, Jill Valentine is dealing with a zombie outbreak and a new T-Virus, Leon Kennedy is on the trail of a kidnapped DARPA scientist, and Claire Redfield is investigating a monstrous fish that is killing whales in the bay. Joined by Chris Redfield and Rebecca Chambers, they discover the trail of clues from their separate cases all converge on the same location, Alcatraz Island, where a new evil has taken residence and awaits their arrival.",
-      "id": 7
     }
   ]
 }

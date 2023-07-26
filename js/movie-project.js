@@ -49,6 +49,7 @@ const getMoviesBySearch = async (queryParam, genreId = null) => {
         const movieContainer = document.getElementById('popularMovieCards')
         movieContainer.innerHTML = ('')
         for (let movie of movies.results) {
+           console.log(movie)
             // node needs to appear within id #div
             let movieCard = document.createElement('div')
             movieCard.innerHTML = `
@@ -59,7 +60,7 @@ const getMoviesBySearch = async (queryParam, genreId = null) => {
             <p class="card-text overview grabSum fs-7">${movie.overview}</p>
             <p class="grabRelease">${movie.release_date}</p>
             <div class="card-body">
-            <button id="save-btn" type="button" class="save-btn btn btn-info">Testing Fav</button>
+            <button id="save-btn" type="button" class="save-btn btn btn-info">Favorites +</button>
             <button id="remove-btn" type="button" class="remove-btn btn btn-danger">Remove</button>
             </div>
             </div>
@@ -73,7 +74,7 @@ const getMoviesBySearch = async (queryParam, genreId = null) => {
             const saveButton = movieCard.querySelector('#save-btn')
             saveButton.addEventListener('click', async(e) => {
                 e.preventDefault();
-                console.log(movieCard)
+
                 const movieTitle = movieCard.querySelector('.grabTitle').innerText;
                 const movieRelease = movieCard.querySelector('.grabRelease').innerText;
                 // const movieImg = movieCard.querySelector('.grabImg').innerText;
@@ -129,7 +130,7 @@ const showPopularMovies = async (genreId = null) => {
             <p class="card-text overview grabSum fs-7">${movie.overview}</p>
             <p class="grabRelease">${movie.release_date}</p>
             <div class="card-body">
-            <button id="save-btn" type="button" class="save-btn btn btn-info">Testing Fav</button>
+            <button id="save-btn" type="button" class="save-btn btn btn-info">Favorites +</button>
             <button id="remove-btn" type="button" class="remove-btn btn btn-danger">Remove</button>
             </div>
             </div>
@@ -251,6 +252,10 @@ const removeFromFavorites = async (id) => {
     }
 };
 
+const clearSearchBar = () => {
+    let input = document.getElementById('searchInput')
+    input.value = ''
+}
 
 
 (() => {
@@ -260,7 +265,10 @@ const removeFromFavorites = async (id) => {
     showPopularMovies()
 
     const home = document.getElementById('popular')
-    home.addEventListener('click', showPopularMovies)
+    home.addEventListener('click', () => {
+        showPopularMovies()
+        clearSearchBar()
+    })
     // Add event listener to the search button and keypress event
     const searchButton = document.querySelector('#searchMovie');
     searchButton.addEventListener('click', () => {
@@ -278,7 +286,8 @@ const removeFromFavorites = async (id) => {
     genreLinks.forEach(link => {
         link.addEventListener('click', () => {
             const genreId = link.getAttribute('data-genre-id');
-            getMoviesBySearch('', genreId); // Pass an empty string for search query and genreId for filtering
+            getMoviesBySearch('', genreId)
+            clearSearchBar(); // Pass an empty string for search query and genreId for filtering
         });
     });
 
