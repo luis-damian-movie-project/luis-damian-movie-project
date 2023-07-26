@@ -86,6 +86,7 @@ const getMoviesBySearch = async (queryParam, genreId = null) => {
                     release: movieRelease,
                     img: imageUrl,
                     sum: movieSum,
+                    rating: 0,
                 }
 
                 const response = await addToFavorites(newMovie)
@@ -159,6 +160,7 @@ const showPopularMovies = async (genreId = null) => {
                     release: movieRelease,
                     img: imageUrl,
                     sum: movieSum,
+                    rating: 0,
                 }
 
                 const response = await addToFavorites(newMovie)
@@ -208,6 +210,27 @@ const getFavorites = async () => {
             </div>
             </div>
       `);
+            if (movie.rating === 1) {
+                movieCard.querySelector('.star1').classList.add('checked')
+            } else if (movie.rating === 2) {
+                movieCard.querySelector('.star1').classList.add('checked')
+                movieCard.querySelector('.star2').classList.add('checked')
+            } else if (movie.rating === 3) {
+                movieCard.querySelector('.star1').classList.add('checked')
+                movieCard.querySelector('.star2').classList.add('checked')
+                movieCard.querySelector('.star3').classList.add('checked')
+            } else if (movie.rating === 4) {
+                movieCard.querySelector('.star1').classList.add('checked')
+                movieCard.querySelector('.star2').classList.add('checked')
+                movieCard.querySelector('.star3').classList.add('checked')
+                movieCard.querySelector('.star4').classList.add('checked')
+            } else if (movie.rating === 5) {
+                movieCard.querySelector('.star1').classList.add('checked')
+                movieCard.querySelector('.star2').classList.add('checked')
+                movieCard.querySelector('.star3').classList.add('checked')
+                movieCard.querySelector('.star4').classList.add('checked')
+                movieCard.querySelector('.star5').classList.add('checked')
+            }
             movieContainer.append(movieCard);
             const star1 = movieCard.querySelector('.star1')
             const star2 = movieCard.querySelector('.star2')
@@ -216,21 +239,35 @@ const getFavorites = async () => {
             const star5 = movieCard.querySelector('.star5')
             star1.addEventListener('click', () => {
                 addStar(star1)
+                removeStar(star2)
+                removeStar(star3)
+                removeStar(star4)
+                removeStar(star5)
+                updateStarRating(movie, 1)
             })
             star2.addEventListener('click', () => {
                 addStar(star1)
                 addStar(star2)
+                removeStar(star3)
+                removeStar(star4)
+                removeStar(star5)
+                updateStarRating(movie, 2)
             })
             star3.addEventListener('click', () => {
                 addStar(star1)
                 addStar(star2)
                 addStar(star3)
+                removeStar(star4)
+                removeStar(star5)
+                updateStarRating(movie, 3)
             })
             star4.addEventListener('click', () => {
                 addStar(star1)
                 addStar(star2)
                 addStar(star3)
                 addStar(star4)
+                removeStar(star5)
+                updateStarRating(movie, 4)
             })
             star5.addEventListener('click', () => {
                 addStar(star1)
@@ -238,7 +275,23 @@ const getFavorites = async () => {
                 addStar(star3)
                 addStar(star4)
                 addStar(star5)
+                updateStarRating(movie, 5)
             })
+            const stars = movieCard.querySelectorAll('.star');
+            for (let i = 0; i < stars.length; i++) {
+                const star = stars[i];
+                star.addEventListener('click', () => {
+                    for (let j = 0; j <= i; j++) {
+                        addStar(stars[j]);
+                    }
+                    for (let j = i + 1; j < stars.length; j++) {
+                        removeStar(stars[j]);
+                    }
+                    const rating = i + 1; // Calculate the rating (e.g., 1 to 5 stars)
+                    updateStarRating(movie.id, rating); // Send the updated rating to the server
+                });
+            }
+
             const id = movie.id
             const removeButton = movieCard.querySelector('.remove-btn')
             removeButton.addEventListener('click', () => {
@@ -292,9 +345,42 @@ const clearSearchBar = () => {
     input.value = ''
 }
 
-const addStar = (star) => {
-    star.classList.toggle('checked')
+const toggleStar = (starElement) => {
+    starElement.classList.toggle('checked')
 }
+const addStar = (starElement) => {
+    starElement.classList.add('checked');
+};
+
+const removeStar = (starElement) => {
+    starElement.classList.remove('checked');
+};
+
+const updateStarRating = async (movie, rating) => {
+    const url = `http://localhost:3000/movies/${movie.id}`;
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            ...movie,
+            rating: rating
+        }),
+    };
+    console.log(options)
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            console.error('Failed to update star rating', response.status, response.statusText);
+        } else {
+            console.log('Star rating updated successfully!');
+        }
+    } catch (error) {
+        console.error('Error updating star rating', error);
+    }
+};
+
 
 (() => {
 
@@ -328,19 +414,5 @@ const addStar = (star) => {
             clearSearchBar(); // Pass an empty string for search query and genreId for filtering
         });
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 })();
