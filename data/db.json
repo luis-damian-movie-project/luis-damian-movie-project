@@ -1,18 +1,6 @@
 {
   "movies": [
     {
-      "id": 1,
-      "title": "The Shawshank Redemption",
-      "genre": "Drama",
-      "rating": 5
-    },
-    {
-      "id": 2,
-      "title": "The Godfather",
-      "genre": "Crime",
-      "rating": 5
-    },
-    {
       "title": "Title: Megaman",
       "release": "Release Date: 2010-05-15",
       "img": {},
@@ -20,8 +8,18 @@
       "id": 3
     },
     {
-      "isTrusted": true,
+      "title": "My Hero Academia: All Might Rising",
+      "release": "2019-02-13",
+      "img": {},
+      "sum": "3rd My Hero Academia OVA. A short special about All Might included with the Blu-ray/DVD release of My Hero Academia: Two Heroes.",
       "id": 4
+    },
+    {
+      "title": "Barbie",
+      "release": "2023-07-19",
+      "img": {},
+      "sum": "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.",
+      "id": 7
     }
   ]
 }
