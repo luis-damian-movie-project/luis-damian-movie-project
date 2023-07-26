@@ -3,15 +3,6 @@ img {
     max-width: 80vh;
 }
 
-/*.card {*/
-/*    margin: 1rem!important;*/
-/*}*/
-
-/*.card-img-top {*/
-/*    max-height: 100%; !* Adjust the value as per your requirement *!*/
-/*    object-fit: cover; !* This ensures the image maintains its aspect ratio while covering the specified height *!*/
-/*    max-width: 100%;*/
-/*}*/
 .movie-card {
     flex: 0 0 300px;
 }
@@ -24,6 +15,9 @@ img {
 }
 .checked {
     color: gold;
+}
+.navbar {
+    margin-bottom: 10px;
 }
 
 
