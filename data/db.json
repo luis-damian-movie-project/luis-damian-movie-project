@@ -5,14 +5,16 @@
       "release": "2023-06-13",
       "img": "https://image.tmdb.org/t/p/original/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
       "sum": "When his attempt to save his family inadvertently alters the future, Barry Allen becomes trapped in a reality in which General Zod has returned and there are no Super Heroes to turn to. In order to save the world that he is in and return to the future that he knows, Barry's only hope is to race for his life. But will making the ultimate sacrifice be enough to reset the universe?",
-      "id": 8
+      "rating": 2,
+      "id": 1
     },
     {
-      "title": "Big Momma's House 2",
-      "release": "2006-01-26",
-      "img": "https://image.tmdb.org/t/p/original/qnJU0qYDvORQrKu4ITrfkTqIQ9m.jpg",
-      "sum": "FBI agent Malcolm Turner goes back undercover as Big Momma, a slick-talking, slam-dunking Southern granny with attitude to spare! Now this granny must play nanny to three dysfunctional upper class kids in order to spy on their computer hacked dad.",
-      "id": 9
+      "title": "Transformers: Rise of the Beasts",
+      "release": "2023-06-06",
+      "img": "https://image.tmdb.org/t/p/original/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+      "sum": "When a new threat capable of destroying the entire planet emerges, Optimus Prime and the Autobots must team up with a powerful faction known as the Maximals. With the fate of humanity hanging in the balance, humans Noah and Elena will do whatever it takes to help the Transformers as they engage in the ultimate battle to save Earth.",
+      "rating": 5,
+      "id": 2
     }
   ]
 }
