@@ -26,7 +26,7 @@ const getMoviesBySearch = async (queryParam) => {
         
 <!--        put code above down here-->
             <div class="card" style="width: 18rem;">
-            <img class="grabImg" src="${imgUrl + movie.poster_path}" alt="${movie.title} Poster" class="card-img-top "/>
+            <img id="moviePoster" class="grabImg" src="${imgUrl + movie.poster_path}" alt="${movie.title} Poster" class="card-img-top "/>
            <div class="card-body">
             <h5 class="card-title text-center grabTitle">${movie.title}</h5>
             <p class="card-text overview grabSum fs-7">${movie.overview}</p>
@@ -49,13 +49,14 @@ const getMoviesBySearch = async (queryParam) => {
                 console.log(movieCard)
                 const movieTitle = movieCard.querySelector('.grabTitle').innerText;
                 const movieRelease = movieCard.querySelector('.grabRelease').innerText;
-                const movieImg = movieCard.querySelector('.grabImg');
+                // const movieImg = movieCard.querySelector('.grabImg').innerText;
                 const movieSum = movieCard.querySelector('.grabSum').innerText;
-
+                const imageElement = document.getElementById('moviePoster')
+                const imageUrl = imageElement.src
                 const newMovie = {
                     title: movieTitle,
                     release: movieRelease,
-                    img: movieImg,
+                    img: imageUrl,
                     sum: movieSum,
                 }
 
@@ -175,6 +176,12 @@ const getFavorites = async () => {
             </div>
       `);
             movieContainer.append(movieCard);
+            let id = movie.id
+            let removeButton = movieCard.querySelector('.remove-btn')
+            removeButton.addEventListener('click', () => {
+                movieCard.remove()
+                removeFromFavorites(id);
+            })
         }
 
 
@@ -196,6 +203,27 @@ const addToFavorites = async (movie) => {
     const data = response.json()
     return data
 }
+
+const removeFromFavorites = async (id) => {
+    const url = `http://localhost:3000/movies/${id}`
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            console.error('Failed to remove movie', response.status, response.statusText)
+        } else {
+            console.log('Movie removed successfully')
+        }
+    } catch (error) {
+        console.error("Error removing movie", error)
+    }
+};
+
 
 
 (() => {
