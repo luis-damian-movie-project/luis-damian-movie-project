@@ -22,7 +22,9 @@ img {
 .card-body {
     background-color: #fff;
 }
-
+.checked {
+    color: gold;
+}
 
 
 

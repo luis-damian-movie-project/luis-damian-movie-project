@@ -49,6 +49,7 @@ const getMoviesBySearch = async (queryParam, genreId = null) => {
         const movieContainer = document.getElementById('popularMovieCards')
         movieContainer.innerHTML = ('')
         for (let movie of movies.results) {
+           console.log(movie)
             // node needs to appear within id #div
             let movieCard = document.createElement('div')
             movieCard.innerHTML = `
@@ -59,7 +60,7 @@ const getMoviesBySearch = async (queryParam, genreId = null) => {
             <p class="card-text overview grabSum fs-7">${movie.overview}</p>
             <p class="grabRelease">${movie.release_date}</p>
             <div class="card-body">
-            <button id="save-btn" type="button" class="save-btn btn btn-info">Testing Fav</button>
+            <button id="save-btn" type="button" class="save-btn btn btn-info">Favorites +</button>
             <button id="remove-btn" type="button" class="remove-btn btn btn-danger">Remove</button>
             </div>
             </div>
@@ -73,7 +74,7 @@ const getMoviesBySearch = async (queryParam, genreId = null) => {
             const saveButton = movieCard.querySelector('#save-btn')
             saveButton.addEventListener('click', async(e) => {
                 e.preventDefault();
-                console.log(movieCard)
+
                 const movieTitle = movieCard.querySelector('.grabTitle').innerText;
                 const movieRelease = movieCard.querySelector('.grabRelease').innerText;
                 // const movieImg = movieCard.querySelector('.grabImg').innerText;
@@ -129,7 +130,7 @@ const showPopularMovies = async (genreId = null) => {
             <p class="card-text overview grabSum fs-7">${movie.overview}</p>
             <p class="grabRelease">${movie.release_date}</p>
             <div class="card-body">
-            <button id="save-btn" type="button" class="save-btn btn btn-info">Testing Fav</button>
+            <button id="save-btn" type="button" class="save-btn btn btn-info">Favorites +</button>
             <button id="remove-btn" type="button" class="remove-btn btn btn-danger">Remove</button>
             </div>
             </div>
@@ -185,7 +186,7 @@ const getFavorites = async () => {
         const movieContainer = document.getElementById('popularMovieCards');
         movieContainer.innerHTML = '';
         for (let movie of data) {
-            console.log(movie)
+            console.log(movie.id)
             /* fetch for image urls goes here */
             let movieCard = document.createElement('div');
             movieCard.classList.add('movie-card')
@@ -198,11 +199,46 @@ const getFavorites = async () => {
             <p class="grabRelease">${movie.release}</p>
             <div class="card-body">
             <button id="remove-btn" type="button" class="remove-btn btn btn-danger">Remove</button>
+            <span class="star1 fa fa-star"></span>
+            <span class="star2 fa fa-star"></span>
+            <span class="star3 fa fa-star"></span>
+            <span class="star4 fa fa-star"></span>
+            <span class="star5 fa fa-star"></span>
             </div>
             </div>
             </div>
       `);
             movieContainer.append(movieCard);
+            const star1 = movieCard.querySelector('.star1')
+            const star2 = movieCard.querySelector('.star2')
+            const star3 = movieCard.querySelector('.star3')
+            const star4 = movieCard.querySelector('.star4')
+            const star5 = movieCard.querySelector('.star5')
+            star1.addEventListener('click', () => {
+                addStar(star1)
+            })
+            star2.addEventListener('click', () => {
+                addStar(star1)
+                addStar(star2)
+            })
+            star3.addEventListener('click', () => {
+                addStar(star1)
+                addStar(star2)
+                addStar(star3)
+            })
+            star4.addEventListener('click', () => {
+                addStar(star1)
+                addStar(star2)
+                addStar(star3)
+                addStar(star4)
+            })
+            star5.addEventListener('click', () => {
+                addStar(star1)
+                addStar(star2)
+                addStar(star3)
+                addStar(star4)
+                addStar(star5)
+            })
             const id = movie.id
             const removeButton = movieCard.querySelector('.remove-btn')
             removeButton.addEventListener('click', () => {
@@ -251,7 +287,14 @@ const removeFromFavorites = async (id) => {
     }
 };
 
+const clearSearchBar = () => {
+    let input = document.getElementById('searchInput')
+    input.value = ''
+}
 
+const addStar = (star) => {
+    star.classList.toggle('checked')
+}
 
 (() => {
 
@@ -260,7 +303,10 @@ const removeFromFavorites = async (id) => {
     showPopularMovies()
 
     const home = document.getElementById('popular')
-    home.addEventListener('click', showPopularMovies)
+    home.addEventListener('click', () => {
+        showPopularMovies()
+        clearSearchBar()
+    })
     // Add event listener to the search button and keypress event
     const searchButton = document.querySelector('#searchMovie');
     searchButton.addEventListener('click', () => {
@@ -278,7 +324,8 @@ const removeFromFavorites = async (id) => {
     genreLinks.forEach(link => {
         link.addEventListener('click', () => {
             const genreId = link.getAttribute('data-genre-id');
-            getMoviesBySearch('', genreId); // Pass an empty string for search query and genreId for filtering
+            getMoviesBySearch('', genreId)
+            clearSearchBar(); // Pass an empty string for search query and genreId for filtering
         });
     });
 
