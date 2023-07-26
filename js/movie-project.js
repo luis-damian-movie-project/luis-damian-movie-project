@@ -2,6 +2,8 @@
 
 //This function retrieves movies from the api and displays them on the page from a search
 const getMoviesBySearch = async (queryParam) => {
+    const url = 'https://api.themoviedb.org/3/movie/popular';
+    const imgUrl = 'https://image.tmdb.org/t/p/original'
     try {
         const baseUrl = 'https://api.themoviedb.org/3/search/movie';
         const queryString = `?query=${encodeURIComponent(queryParam)}&api_key=${MOVIE_DB_API}`;
@@ -15,21 +17,27 @@ const getMoviesBySearch = async (queryParam) => {
         }
         const response = await fetch(url, options)
         const movies = await response.json();
-        const movieContainer = document.getElementById('movie-card')
+        const movieContainer = document.getElementById('popularMovieCards')
         movieContainer.innerHTML = ('')
         for (let movie of movies.results) {
             // node needs to appear within id #div
             let movieCard = document.createElement('div')
-            movieCard.innerHTML = (`
-                <ul>
-                <li class="grabTitle">Title: ${movie.title}</li>
-                <li class="grabRelease">Release Date: ${movie.release_date}</li>
-                <li class="grabImg">Poster Path: ${movie.poster_path}</li>
-                <li class="grabSum">Overview: ${movie.overview}</li>
-                <button id="save-btn" type="button" class="save-btn btn btn-outline-primary">Testing Fav</button>
-                 <button id="remove-btn" type="button" class=" remove-btn btn btn-outline-primary">Remove</button>
-                </ul>
-            `);
+            movieCard.innerHTML = `
+        
+<!--        put code above down here-->
+            <div class="card" style="width: 18rem;">
+            <img class="grabImg" src="${imgUrl + movie.poster_path}" alt="${movie.title} Poster" class="card-img-top "/>
+           <div class="card-body">
+            <h5 class="card-title text-center grabTitle">${movie.title}</h5>
+            <p class="card-text overview grabSum fs-7">${movie.overview}</p>
+            <p class="grabRelease">${movie.release_date}</p>
+            <div class="card-body">
+            <button id="save-btn" type="button" class="save-btn btn btn-info">Testing Fav</button>
+            <button id="remove-btn" type="button" class="remove-btn btn btn-danger">Remove</button>
+            </div>
+            </div>
+            </div>
+            `;
             movieContainer.append(movieCard)
             let removeButton = movieCard.querySelector('.remove-btn')
             removeButton.addEventListener('click', () => {
@@ -51,19 +59,12 @@ const getMoviesBySearch = async (queryParam) => {
                     sum: movieSum,
                 }
 
-
                 const response = await addToFavorites(newMovie)
-                // console.log(response)
                 return response
-                // const favMoviesDiv =
-                // document.querySelector('#favorite-movies');
-                // await renderFavoriteMovies(await getFavovoriteMovies());
             })
-
-            // return movies
         }
     } catch (error) {
-        console.error(error)
+
     }
 
 }
@@ -85,33 +86,24 @@ const showPopularMovies = async () => {
         const movieContainer = document.getElementById('popularMovieCards');
         movieContainer.innerHTML = '';
 
-        let isFirstSlide = true; // To determine the first slide
-
         for (let movie of movies.results) {
             let movieCard = document.createElement('div');
             movieCard.classList.add('movie-card')
-            // Update the HTML content of the movie card
-            movieCard.innerHTML = `
-        
-<!--        put code above down here-->
-        <div class="card" style="width: 18rem;">
-          <img class="grabImg" src="${imgUrl + movie.poster_path}" alt="${movie.title} Poster" class="card-img-top "/>
-  <div class="card-body">
+            movieCard.innerHTML = (`
+            <div class="card" style="width: 18rem;">
+            <img class="grabImg" src="${imgUrl + movie.poster_path}" alt="${movie.title} Poster" class="card-img-top "/>
+            <div class="card-body">
             <h5 class="card-title text-center grabTitle">${movie.title}</h5>
             <p class="card-text overview grabSum fs-7">${movie.overview}</p>
-          <div class="card-body">
+            <p class="grabRelease">${movie.release_date}</p>
+            <div class="card-body">
             <button id="save-btn" type="button" class="save-btn btn btn-info">Testing Fav</button>
             <button id="remove-btn" type="button" class="remove-btn btn btn-danger">Remove</button>
-          </div>
-  </div>
-</div>
-      `;
-
-            // Add the carousel-item class only to the first slide
-            if (isFirstSlide) {
-                movieCard.classList.add('active');
-                isFirstSlide = false;
-            }
+            </div>
+            </div>
+            </div>
+      `);
+            movieContainer.append(movieCard);
 
             // Rest of the code remains the same
             let removeButton = movieCard.querySelector('.remove-btn');
@@ -119,16 +111,31 @@ const showPopularMovies = async () => {
                 movieCard.remove();
             });
 
-            const saveButton = movieCard.querySelector('#save-btn');
-            saveButton.addEventListener('click', addToFavorites);
+            const saveButton = movieCard.querySelector('#save-btn')
+            saveButton.addEventListener('click', async(e) => {
+                e.preventDefault();
+                console.log(movieCard)
+                const movieTitle = movieCard.querySelector('.grabTitle').innerText;
+                const movieRelease = movieCard.querySelector('.grabRelease').innerText;
+                const movieImg = movieCard.querySelector('.grabImg');
+                const movieSum = movieCard.querySelector('.grabSum').innerText;
 
-            movieContainer.append(movieCard);
+                const newMovie = {
+                    title: movieTitle,
+                    release: movieRelease,
+                    img: movieImg,
+                    sum: movieSum,
+                }
+
+                const response = await addToFavorites(newMovie)
+                return response
+            })
         }
     } catch (error) {
-        console.error(error);
-    }
-};
 
+    }
+
+}
 
 // This function retrieves movies from the json file
 const getFavorites = async () => {
@@ -142,7 +149,28 @@ const getFavorites = async () => {
     try {
         const response = await fetch(url, options)
         const data = await response.json()
-        await console.log(data)
+        const movieContainer = document.getElementById('popularMovieCards');
+        movieContainer.innerHTML = '';
+        for (let movie of data) {
+            console.log(movie)
+            let movieCard = document.createElement('div');
+            movieCard.classList.add('movie-card')
+            movieCard.innerHTML = (`
+            <div class="card" style="width: 18rem;">
+            <img class="grabImg" src="" alt="${movie.title} Poster" class="card-img-top "/>
+            <div class="card-body">
+            <h5 class="card-title text-center grabTitle">${movie.title}</h5>
+            <p class="card-text overview grabSum fs-7">${movie.sum}</p>
+            <p class="grabRelease">${movie.release}</p>
+            <div class="card-body">
+            <button id="remove-btn" type="button" class="remove-btn btn btn-danger">Remove</button>
+            </div>
+            </div>
+            </div>
+      `);
+            movieContainer.append(movieCard);
+        }
+
 
     } catch (error) {
 
@@ -165,6 +193,8 @@ const addToFavorites = async (movie) => {
 
 
 (() => {
+    // getFavorites()
+
     showPopularMovies()
     // Add event listener to the search button and keypress event
     const searchButton = document.querySelector('#searchMovie');
