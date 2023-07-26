@@ -186,7 +186,7 @@ const getFavorites = async () => {
         const movieContainer = document.getElementById('popularMovieCards');
         movieContainer.innerHTML = '';
         for (let movie of data) {
-            console.log(movie)
+            console.log(movie.id)
             /* fetch for image urls goes here */
             let movieCard = document.createElement('div');
             movieCard.classList.add('movie-card')
@@ -199,11 +199,46 @@ const getFavorites = async () => {
             <p class="grabRelease">${movie.release}</p>
             <div class="card-body">
             <button id="remove-btn" type="button" class="remove-btn btn btn-danger">Remove</button>
+            <span class="star1 fa fa-star"></span>
+            <span class="star2 fa fa-star"></span>
+            <span class="star3 fa fa-star"></span>
+            <span class="star4 fa fa-star"></span>
+            <span class="star5 fa fa-star"></span>
             </div>
             </div>
             </div>
       `);
             movieContainer.append(movieCard);
+            const star1 = movieCard.querySelector('.star1')
+            const star2 = movieCard.querySelector('.star2')
+            const star3 = movieCard.querySelector('.star3')
+            const star4 = movieCard.querySelector('.star4')
+            const star5 = movieCard.querySelector('.star5')
+            star1.addEventListener('click', () => {
+                addStar(star1)
+            })
+            star2.addEventListener('click', () => {
+                addStar(star1)
+                addStar(star2)
+            })
+            star3.addEventListener('click', () => {
+                addStar(star1)
+                addStar(star2)
+                addStar(star3)
+            })
+            star4.addEventListener('click', () => {
+                addStar(star1)
+                addStar(star2)
+                addStar(star3)
+                addStar(star4)
+            })
+            star5.addEventListener('click', () => {
+                addStar(star1)
+                addStar(star2)
+                addStar(star3)
+                addStar(star4)
+                addStar(star5)
+            })
             const id = movie.id
             const removeButton = movieCard.querySelector('.remove-btn')
             removeButton.addEventListener('click', () => {
@@ -257,6 +292,9 @@ const clearSearchBar = () => {
     input.value = ''
 }
 
+const addStar = (star) => {
+    star.classList.toggle('checked')
+}
 
 (() => {
 
